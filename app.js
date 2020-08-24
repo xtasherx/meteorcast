@@ -1,7 +1,21 @@
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city THEN I am presented with current and future conditions for that city and that city is added to the search history
 /////Grab user input from search field on button click & store in a variable
-let userSearch = "san antonio";
+let userSearch = "london";
+function timeStamp(unix) {
+  const millisecs = unix * 1000;
+  const dateObject = new Date(millisecs);
+  const dateResult = dateObject.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+  return dateResult;
+}
+
+$(".btn").on("click", function () {
+  userSearch = $(".searchbox").val().trim();
+});
 //// user input needs to be used to search json data for the city
 // user input needs to be used to add to a buttons array of recent searches.
 const historyButtons = [];
@@ -11,12 +25,11 @@ $.ajax({
   url: responseURL,
   method: "GET",
 }).then(function (response) {
-  console.log(response);
   // WHEN I view current weather conditions for that city THEN I am presented with the:
   // city name
   $(".display-3").text(response.name);
-  let latHolder = response.coord.lat;
-  let lonHolder = response.coord.lon;
+  const latHolder = response.coord.lat;
+  const lonHolder = response.coord.lon;
 
   responseURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latHolder}&lon=${lonHolder}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
 
@@ -28,15 +41,15 @@ $.ajax({
 
     // the date
     $(".display-4").text(`
-       ${response.current.dt}
+       ${timeStamp(response.current.dt)}
         `);
     // the temperature
     $(".temp").text(`
-        Temperature: ${response.current.temp} F
+        Temperature: ${Math.ceil(response.current.temp)}F
 `);
     // the wind speed
     $(".wind").text(`
-        Wind Speed: ${response.current.wind_speed} MPH
+        Wind Speed: ${response.current.wind_speed}MPH
 `);
     // the humidity
     $(".humidity").text(`
@@ -66,7 +79,7 @@ $.ajax({
     const cardImage = document.querySelectorAll(".card-icon");
     cardArray.forEach(function (card, i) {
       //  the date
-      cardTitles[i].textContent = `${response.daily[i].dt}`;
+      cardTitles[i].textContent = `${timeStamp(response.daily[i].dt)}`;
       //  the temperature
       //  the humidity
       //  an icon representation of weather conditions
@@ -75,11 +88,11 @@ $.ajax({
         `http://openweathermap.org/img/wn/${response.daily[i].weather[0].icon}@2x.png`
       );
 
-      cardText[i].textContent = `
-        High:${response.daily[i].temp.max}
-        Low:${response.daily[i].temp.min}
-        Humidity:${response.daily[i].humidity}%
-     `;
+      cardText[i].innerHTML = `
+        <p>High: ${Math.ceil(response.daily[i].temp.max)}F</p>
+        <p>Low: ${Math.ceil(response.daily[i].temp.min)}F</p>
+        <p>Humidity: ${response.daily[i].humidity}%</p>
+      `;
     });
   });
 });
