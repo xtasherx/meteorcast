@@ -39,7 +39,7 @@ $(document).ready(function () {
   }
   // function to get weather info and write it to page
   function populateWeather() {
-    let responseURL = ` https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=${userSearch}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
+    let responseURL = ` http://api.openweathermap.org/data/2.5/weather?q=${userSearch}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
     $.ajax({
       url: responseURL,
       method: "GET",
@@ -47,7 +47,7 @@ $(document).ready(function () {
       $(".display-3").text(response.name);
       const latHolder = response.coord.lat;
       const lonHolder = response.coord.lon;
-      responseURL = ` https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/onecall?lat=${latHolder}&lon=${lonHolder}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
+      responseURL = ` http://api.openweathermap.org/data/2.5/onecall?lat=${latHolder}&lon=${lonHolder}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
 
       $.ajax({
         url: responseURL,
@@ -95,15 +95,17 @@ $(document).ready(function () {
 
         // write 5 day forcast to page
         cardArray.forEach(function (card, i) {
-          cardTitles[i].textContent = `${timeStamp(response.daily[i].dt)}`;
+          cardTitles[i].textContent = `${timeStamp(response.daily[i + 2].dt)}`;
           cardImage[i].setAttribute(
             "src",
-            `http://openweathermap.org/img/wn/${response.daily[i].weather[0].icon}@2x.png`
+            `http://openweathermap.org/img/wn/${
+              response.daily[i + 2].weather[0].icon
+            }@2x.png`
           );
           cardText[i].innerHTML = `
-          <p>High: ${Math.ceil(response.daily[i].temp.max)}F</p>
-          <p>Low: ${Math.ceil(response.daily[i].temp.min)}F</p>
-          <p>Humidity: ${response.daily[i].humidity}%</p>
+          <p>High: ${Math.ceil(response.daily[i + 2].temp.max)}F</p>
+          <p>Low: ${Math.ceil(response.daily[i + 2].temp.min)}F</p>
+          <p>Humidity: ${response.daily[i + 2].humidity}%</p>
         `;
         });
       });
