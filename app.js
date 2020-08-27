@@ -39,20 +39,27 @@ $(document).ready(function () {
   }
   // function to get weather info and write it to page
   function populateWeather() {
-    let responseURL = ` http://api.openweathermap.org/data/2.5/weather?q=${userSearch}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
+    let responseURL = `http://api.openweathermap.org/data/2.5/weather?q=${userSearch}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
     $.ajax({
       url: responseURL,
       method: "GET",
-      crossDomain: true,
+      headers: {
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     }).then(function (response) {
       $(".display-3").text(response.name);
       const latHolder = response.coord.lat;
       const lonHolder = response.coord.lon;
-      responseURL = ` http://api.openweathermap.org/data/2.5/onecall?lat=${latHolder}&lon=${lonHolder}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
+      responseURL = `http://api.openweathermap.org/data/2.5/onecall?lat=${latHolder}&lon=${lonHolder}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
 
       $.ajax({
         url: responseURL,
         method: "GET",
+        headers: {
+          accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
       }).then(function (response) {
         console.log(response);
         // write current weather to the page
