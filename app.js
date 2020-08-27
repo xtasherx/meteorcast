@@ -81,11 +81,11 @@ $(document).ready(function () {
           .css("border-radius", "5px");
         // conditional to color code uv index
         if (response.current.uvi <= 2) {
-          $(".uvi").css("background-color", "green");
+          $(".uvi").css("background-color", "#46894a");
         } else if (response.current.uvi >= 6) {
-          $(".uvi").css("background-color", "red");
+          $(".uvi").css("background-color", "#cc2a02");
         } else {
-          $(".uvi").css("background-color", "orange");
+          $(".uvi").css("background-color", "#EC6E4C");
         }
 
         $(".main-icon").attr(
@@ -95,17 +95,15 @@ $(document).ready(function () {
 
         // write 5 day forcast to page
         cardArray.forEach(function (card, i) {
-          cardTitles[i].textContent = `${timeStamp(response.daily[i + 2].dt)}`;
+          cardTitles[i].textContent = `${timeStamp(response.daily[i].dt)}`;
           cardImage[i].setAttribute(
             "src",
-            `http://openweathermap.org/img/wn/${
-              response.daily[i + 2].weather[0].icon
-            }@2x.png`
+            `http://openweathermap.org/img/wn/${response.daily[i].weather[0].icon}@2x.png`
           );
           cardText[i].innerHTML = `
-          <p>High: ${Math.ceil(response.daily[i + 2].temp.max)}F</p>
-          <p>Low: ${Math.ceil(response.daily[i + 2].temp.min)}F</p>
-          <p>Humidity: ${response.daily[i + 2].humidity}%</p>
+          <p>High: ${Math.ceil(response.daily[i].temp.max)}F</p>
+          <p>Low: ${Math.ceil(response.daily[i].temp.min)}F</p>
+          <p>Humidity: ${response.daily[i].humidity}%</p>
         `;
         });
       });

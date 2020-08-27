@@ -1,5 +1,9 @@
+.container-fluid {
+  background-color: #fcf7f2;
+}
 .jumbotron {
-  margin: 50px;
+  margin: 50px auto;
+  background-image: url("bluecloth.png");
 }
 
 .card {
@@ -8,4 +12,26 @@
 
 .histBnt {
   margin: 10px;
+}
+.display-3 {
+  font-family: "Monoton", cursive;
+  color: #fcf7f2;
+}
+.display-4 {
+  color: #fcf7f2;
+}
+.jumbo-div {
+  margin: 50px;
+}
+.city {
+  text-align: center;
+}
+.lead {
+  padding: 0px 10px 0px 10px;
+  color: #fcf7f2;
+}
+#nav-title {
+  font-family: "Monoton", cursive;
+  font-size: 2.5em;
+  color: #ec6e4c;
 }
