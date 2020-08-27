@@ -43,6 +43,7 @@ $(document).ready(function () {
     $.ajax({
       url: responseURL,
       method: "GET",
+      crossDomain: true,
     }).then(function (response) {
       $(".display-3").text(response.name);
       const latHolder = response.coord.lat;
