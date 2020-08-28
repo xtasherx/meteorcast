@@ -24,7 +24,7 @@
 
 .jumbotron {
   margin-top: 30px;
-  background-color: url("bluecloth.png");
+  background-image: url("bluecloth.png");
 }
 
 .histBnt {
