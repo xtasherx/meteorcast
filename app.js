@@ -28,7 +28,15 @@ $(document).ready(function () {
     const dateResult = dateObject.toLocaleString("en-US", {
       month: "long",
       day: "numeric",
-      year: "numeric",
+    });
+    return dateResult;
+  }
+
+  function weekdayStamp(unix) {
+    const millisecs = unix * 1000;
+    const dateObject = new Date(millisecs);
+    const dateResult = dateObject.toLocaleString("en-US", {
+      weekday: "long",
     });
     return dateResult;
   }
@@ -58,6 +66,9 @@ $(document).ready(function () {
         $(".display-4").text(`
         ${timeStamp(response.current.dt)}
           `);
+        $(".display-5").text(`
+        ${weekdayStamp(response.current.dt)}
+          `);
         $(".temp").text(`
           Temperature: ${Math.ceil(response.current.temp)}F
         `);
@@ -67,11 +78,6 @@ $(document).ready(function () {
         $(".humidity").text(`
           Humidity: ${response.current.humidity}%
         `);
-        // the UV index
-        // WHEN I view the UV index THEN I am presented with a color that indicates whether the conditions are:
-        // favorable
-        // moderate
-        // severe
         $(".uvi")
           .text(
             `
@@ -95,7 +101,9 @@ $(document).ready(function () {
 
         // write 5 day forcast to page
         cardArray.forEach(function (card, i) {
-          cardTitles[i].textContent = `${timeStamp(response.daily[i].dt)}`;
+          cardTitles[i].textContent = `${weekdayStamp(
+            response.daily[i].dt
+          )} ${timeStamp(response.daily[i].dt)}`;
           cardImage[i].setAttribute(
             "src",
             `http://openweathermap.org/img/wn/${response.daily[i].weather[0].icon}@2x.png`

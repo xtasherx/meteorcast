@@ -1,37 +1,68 @@
+/* Mutli-class selectors */
+.display-3,.display-4,
+.display-5,.lead {
+  color: #fcf7f2;
+}
+
+.display-3, #nav-title {
+  font-family: "Monoton", cursive;
+}
+
+.display-3{
+  font-size: 2.5em;
+}
+
+/* ID selectors */
+#nav-title {
+  color: #ec6e4c;
+}
+
+/* class selectors */
 .container-fluid {
   background-color: #fcf7f2;
 }
-.jumbotron {
-  margin: 50px auto;
-  background-image: url("bluecloth.png");
-}
 
-.card {
-  margin: 10px;
+.jumbotron {
+  margin-top: 30px;
+  background-image: url("images/bluecloth.png");
 }
 
 .histBnt {
-  margin: 10px;
+  margin: 5px;
 }
-.display-3 {
-  font-family: "Monoton", cursive;
-  color: #fcf7f2;
+
+.card{
+  margin: 5px;
 }
-.display-4 {
-  color: #fcf7f2;
-}
-.jumbo-div {
-  margin: 50px;
-}
+
 .city {
   text-align: center;
 }
+
 .lead {
   padding: 0px 10px 0px 10px;
-  color: #fcf7f2;
 }
-#nav-title {
-  font-family: "Monoton", cursive;
-  font-size: 2.5em;
-  color: #ec6e4c;
+
+
+/* non-mobile breakpoints */
+@media(min-width: 915px){
+  .jumbo-div {
+    margin: 50px;
+  }
+}
+@media (min-width: 445px) {
+
+  .jumbotron{
+    margin: 50px auto;
+  }
+  #nav-title{
+    font-size: 2.5em;
+  }
+  .display-3{
+    font-size:4em;
+  }
+  .card {
+    margin: 10px;
+  }
+  }
 }
