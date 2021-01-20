@@ -7,6 +7,10 @@
   background-color: rgba(227, 227, 227, 0.4);
 }
 
+#dropdown {
+  display: block;
+}
+
 .five-day-div {
   display: block;
 }
@@ -17,4 +21,23 @@
 
 .hourly-div {
   display: none;
+}
+
+@media (max-width: 768px) {
+
+  .current-div {
+    margin-top: 250px;
+  }
+
+  #feelsLike {
+    margin-bottom: 0px;
+  }
+
+  #current-1,#current-32,#current-3 {
+    margin: 0px;
+  }
+
+  #dropdown {
+    display: none;
+  }
 }
