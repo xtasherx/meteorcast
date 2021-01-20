@@ -15,7 +15,6 @@ $(document).ready(function () {
      userSearch = placeHold;
    }
    
-
    // Declare variable to hold local storage data & conditional to check if it is empty on load
    const cardArray = document.querySelectorAll(".five-day");
    const cardArraySeven = document.querySelectorAll(".seven-day")
@@ -23,8 +22,16 @@ $(document).ready(function () {
    const sevenDiv = document.querySelector(".seven-day-div");
    const hourTab = document.querySelectorAll(".hourly-tab");
    const tabCont = document.querySelector(".tab-container");
-   
+   const navBtn = document.querySelector('.nav-btn');
 
+//toggle dropdown on small screens
+navBtn.addEventListener("click", (e) => {
+  let dropDownMenu = document.getElementById("nav")
+  e.target.classList.toggle("active");
+  dropDownMenu.classList.toggle('active');
+})
+   
+   //show and hide divs on tab selection
    tabCont.addEventListener("click", (e) => {
     const tabItems = document.querySelectorAll(".tab");
     e.target.parentElement.className += " selected";
@@ -40,6 +47,9 @@ $(document).ready(function () {
        fiveDiv.style.display = "none";
      } else if (e.target.id ==="five-day-tab") {
        fiveDiv.style.display = "block";
+       sevenDiv.style.display = "none";
+     } else {
+       fiveDiv.style.display = "none";
        sevenDiv.style.display = "none";
      }
    })
@@ -159,30 +169,13 @@ $(document).ready(function () {
    // weather call on search button press
    $(".search-btn").on("click", function (event) {
      event.preventDefault();
- 
      userSearch = $(".searchbox").val();
      $(".searchbox").val("");
      // push user search into an array for history
      historyButtons.push(userSearch);
      console.log(last(historyButtons));
      console.log(historyButtons);
-     $("#history-buttons").empty();
-     // for each loop to write search history buttons to page
-     historyButtons.forEach(function (button) {
-       let newButton = $("<button>")
-         .text(button.toLowerCase())
-         .attr("class", "btn btn-outline-dark")
-         .attr("data-key", button)
-         .css("margin", "10px");
-       $("#history-buttons").append(newButton);
-     });
      localStorage.setItem("json", JSON.stringify(historyButtons));
      populateWeather();
-   });
-   // weather call on history button press
-   $("#history-buttons").on("click", "button", function () {
-     userSearch = $(this).attr("data-key");
-     populateWeather();
-     console.log($(this).attr("data-key"));
    });
  });
