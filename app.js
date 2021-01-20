@@ -17,19 +17,20 @@ $(document).ready(function () {
    
    // Declare variable to hold local storage data & conditional to check if it is empty on load
    const cardArray = document.querySelectorAll(".five-day");
-   const cardArraySeven = document.querySelectorAll(".seven-day")
+   const cardArraySeven = document.querySelectorAll(".seven-day");
+   const cardArrayHourly = document.querySelectorAll(".hourly");
    const fiveDiv = document.querySelector(".five-day-div");
    const sevenDiv = document.querySelector(".seven-day-div");
-   const hourTab = document.querySelectorAll(".hourly-tab");
+   const hourDiv = document.querySelector(".hourly-div");
    const tabCont = document.querySelector(".tab-container");
    const navBtn = document.querySelector('.nav-btn');
 
-//toggle dropdown on small screens
-navBtn.addEventListener("click", (e) => {
-  let dropDownMenu = document.getElementById("nav")
-  e.target.classList.toggle("active");
-  dropDownMenu.classList.toggle('active');
-})
+    //toggle dropdown on small screens
+    navBtn.addEventListener("click", (e) => {
+      let dropDownMenu = document.getElementById("nav")
+      e.target.classList.toggle("active");
+      dropDownMenu.classList.toggle('active');
+    })
    
    //show and hide divs on tab selection
    tabCont.addEventListener("click", (e) => {
@@ -37,7 +38,6 @@ navBtn.addEventListener("click", (e) => {
     e.target.parentElement.className += " selected";
     tabItems.forEach((tab) => {
       if(tab !== e.target.parentElement) {
-        // tab.classList.remove("selected");
         tab.classList.remove("selected");
       }
     })
@@ -45,16 +45,19 @@ navBtn.addEventListener("click", (e) => {
      if (e.target.id === "seven-day-tab") {
        sevenDiv.style.display = "block";
        fiveDiv.style.display = "none";
+       hourDiv.style.display = "none";
      } else if (e.target.id ==="five-day-tab") {
        fiveDiv.style.display = "block";
        sevenDiv.style.display = "none";
-     } else {
+       hourDiv.style.display = "none";
+     } else if (e.target.id ==="hourly-tab") {
+       hourDiv.style.display = "block"
        fiveDiv.style.display = "none";
        sevenDiv.style.display = "none";
      }
    })
  
-   // function to translate unix time
+   // functions to translate unix time
    function timeStamp(unix) {
      const millisecs = unix * 1000;
      const dateObject = new Date(millisecs);
@@ -73,6 +76,22 @@ navBtn.addEventListener("click", (e) => {
      });
      return dateResult;
    }
+
+   navigator.geolocation.getCurrentPosition((pos)=>{
+      console.log(pos.coords.latitude);
+      console.log(pos.coords.longitude);
+   });
+
+
+   function hourStamp(unix) {
+    const millisecs = unix * 1000;
+    const dateObject = new Date(millisecs);
+    const dateResult = dateObject.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric"
+    });
+    return dateResult;
+  }
  
    // function to get last item in array
    function last(arr) {
@@ -148,18 +167,32 @@ navBtn.addEventListener("click", (e) => {
          });
 
          //write 7 day forecast to page
+        cardArraySeven.forEach(function (card, i) {
 
-                  // write 5 day forcast to page
-                  cardArraySeven.forEach(function (card, i) {
+          cardArraySeven[i].innerHTML = `
+          <div class="col-3">${weekdayStamp(response.daily[i].dt)}, ${timeStamp(response.daily[i].dt)}
+          </div>
+          <div class="col-3"><img src="http://openweathermap.org/img/wn/${response.daily[i].weather[0].icon}@2x.png" style="max-height: 50px"alt=""></div>
+          <div class="col-3 text-orange-500 font-bold">High:${Math.ceil(response.daily[i].temp.max)}°F</div>
+          <div class="col-3"> Low:${Math.ceil(response.daily[i].temp.min)}°F</div>
+        `;
+        });
 
-                    cardArraySeven[i].innerHTML = `
-                    <div class="col-3">${weekdayStamp(response.daily[i].dt)}, ${timeStamp(response.daily[i].dt)}
-                   </div>
-                   <div class="col-3"><img src="http://openweathermap.org/img/wn/${response.daily[i].weather[0].icon}@2x.png" style="max-height: 50px"alt=""></div>
-                   <div class="col-3 text-orange-500 font-bold">High:${Math.ceil(response.daily[i].temp.max)}°F</div>
-                    <div class="col-3"> Low:${Math.ceil(response.daily[i].temp.min)}°F</div>
-                  `;
-                  });
+        //write hourly forecast to page
+
+        cardArrayHourly.forEach(function (card, i) {
+          if (i <= 12) {
+            cardArrayHourly[i].innerHTML = `
+            <div class="col-3">${hourStamp(response.hourly[i].dt)}
+            </div>
+            <div class="col-3"><img src="http://openweathermap.org/img/wn/${response.hourly[i].weather[0].icon}@2x.png" style="max-height: 50px"alt=""></div>
+            <div class="col-3 text-orange-500 font-bold">${Math.ceil(response.hourly[i].temp)}°F</div>
+            <div class="col-3"> ${response.hourly[i].weather[0].description}</div>
+          `;
+          }
+
+        });
+
        });
      });
    }

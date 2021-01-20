@@ -26,12 +26,12 @@
 @media (max-width: 768px) {
 
   .current-div {
-    margin-top: 250px;
+    margin-top: 200px;
   }
 
-  #feelsLike {
+  /* #feelsLike {
     margin-bottom: 0px;
-  }
+  } */
 
   #current-1,#current-32,#current-3 {
     margin: 0px;
