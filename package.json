@@ -1,0 +1,25 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "It's a weather app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xtasherx/weatherApp.git"
+  },
+  "author": "Natasha Harrington",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xtasherx/weatherApp/issues"
+  },
+  "homepage": "https://github.com/xtasherx/weatherApp#readme",
+  "dependencies": {
+    "cirrus-ui": "^0.6.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}

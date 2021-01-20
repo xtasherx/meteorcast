@@ -1,68 +1,20 @@
-/* Mutli-class selectors */
-.display-3,.display-4,
-.display-5,.lead {
-  color: #fcf7f2;
+.parallax-img {
+  background-image: url("cloud.jpg");
+  background-size: cover;
 }
 
-.display-3, #nav-title {
-  font-family: "Monoton", cursive;
+#opaque-background {
+  background-color: rgba(227, 227, 227, 0.4);
 }
 
-.display-3{
-  font-size: 2.5em;
+.five-day-div {
+  display: block;
 }
 
-/* ID selectors */
-#nav-title {
-  color: #ec6e4c;
+.seven-day-div {
+  display: none;
 }
 
-/* class selectors */
-.container-fluid {
-  background-color: #fcf7f2;
-}
-
-.jumbotron {
-  margin-top: 30px;
-  background-image: url("bluecloth.png");
-}
-
-.histBnt {
-  margin: 5px;
-}
-
-.card{
-  margin: 5px;
-}
-
-.city {
-  text-align: center;
-}
-
-.lead {
-  padding: 0px 10px 0px 10px;
-}
-
-
-/* non-mobile breakpoints */
-@media(min-width: 915px){
-  .jumbo-div {
-    margin: 50px;
-  }
-}
-@media (min-width: 445px) {
-
-  .jumbotron{
-    margin: 50px auto;
-  }
-  #nav-title{
-    font-size: 2.5em;
-  }
-  .display-3{
-    font-size:4em;
-  }
-  .card {
-    margin: 10px;
-  }
-  }
+.hourly-div {
+  display: none;
 }
