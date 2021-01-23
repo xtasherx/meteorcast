@@ -24,16 +24,17 @@
 }
 
 @media (max-width: 768px) {
-
   .current-div {
-    margin-top: 200px;
+    margin-top: 150px;
   }
 
   /* #feelsLike {
     margin-bottom: 0px;
   } */
 
-  #current-1,#current-32,#current-3 {
+  #current-1,
+  #current-32,
+  #current-3 {
     margin: 0px;
   }
 

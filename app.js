@@ -1,20 +1,6 @@
 
 $(document).ready(function () {
-   // let userSearch = "london";
-   let historyButtons = [];
-   let userSearch;
-   let placeHold;
- 
-   // Conditional to check if local storage is empty on load and set the userSearch value
-   if (localStorage.getItem("json")) {
-     placeHold = JSON.parse(localStorage.getItem("json"));
-     userSearch = last(placeHold);
-     historyButtons.push(last(placeHold));
-   } else {
-     placeHold = "london";
-     userSearch = placeHold;
-   }
-   
+  
    // Declare variable to hold local storage data & conditional to check if it is empty on load
    const cardArray = document.querySelectorAll(".five-day");
    const cardArraySeven = document.querySelectorAll(".seven-day");
@@ -24,6 +10,40 @@ $(document).ready(function () {
    const hourDiv = document.querySelector(".hourly-div");
    const tabCont = document.querySelector(".tab-container");
    const navBtn = document.querySelector('.nav-btn');
+   const histList = document.querySelector("#history-buttons");
+  
+   navigator.geolocation.getCurrentPosition((pos)=>{
+    console.log(pos);
+    });
+
+   // Conditional to check if local storage is empty on load and set the userSearch value
+          // let userSearch = "london";
+          let historyButtons = [];
+          let userSearch;
+          let placeHold;
+
+    // function to get last item in array
+      function last(arr) {
+        return arr[arr.length - 1];
+      }
+
+   const historyHandler = () => {
+    if (localStorage.getItem("json")) {
+      placeHold = JSON.parse(localStorage.getItem("json"));
+      placeHold.forEach((city) => {
+       const history = document.querySelector("#history-buttons");
+       console.log(city)
+       history.innerHTML += `<li><a>${city.toLowerCase()}</a></li>`
+     })
+      userSearch = last(placeHold);
+      historyButtons.push(last(placeHold));
+    } else {
+      placeHold = "london";
+      userSearch = placeHold;
+    }
+   }
+
+   
 
     //toggle dropdown on small screens
     navBtn.addEventListener("click", (e) => {
@@ -57,6 +77,7 @@ $(document).ready(function () {
      }
    })
  
+
    // functions to translate unix time
    function timeStamp(unix) {
      const millisecs = unix * 1000;
@@ -72,15 +93,10 @@ $(document).ready(function () {
      const millisecs = unix * 1000;
      const dateObject = new Date(millisecs);
      const dateResult = dateObject.toLocaleString("en-US", {
-       weekday: "long",
+       weekday: "short",
      });
      return dateResult;
    }
-
-   navigator.geolocation.getCurrentPosition((pos)=>{
-      console.log(pos.coords.latitude);
-      console.log(pos.coords.longitude);
-   });
 
 
    function hourStamp(unix) {
@@ -93,10 +109,7 @@ $(document).ready(function () {
     return dateResult;
   }
  
-   // function to get last item in array
-   function last(arr) {
-     return arr[arr.length - 1];
-   }
+
    // function to get weather info and write it to page
    function populateWeather() {
      let responseURL = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=${userSearch}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
@@ -105,10 +118,11 @@ $(document).ready(function () {
        method: "GET",
      }).then(function (response) {
        $(".city").text(response.name);
-       const latHolder = response.coord.lat;
-       const lonHolder = response.coord.lon;
+        latHolder = response.coord.lat;
+        lonHolder = response.coord.lon;
        responseURL = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/onecall?lat=${latHolder}&lon=${lonHolder}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
  
+
        $.ajax({
          url: responseURL,
          method: "GET",
@@ -121,6 +135,18 @@ $(document).ready(function () {
          $(".display-5").text(`
          ${weekdayStamp(response.current.dt)}
            `);
+          $(".high").text(`
+           High: ${Math.ceil(response.daily[0].temp.max)}°F
+            `);
+            $(".low").text(`
+            Low: ${Math.ceil(response.daily[0].temp.min)}°F
+             `);
+             $(".sunset").text(`
+             Sunset: ${hourStamp(response.current.sunset)}
+              `);
+              $(".sunrise").text(`
+              Sunrise: ${hourStamp(response.current.sunrise)}
+               `);
          $(".temp").text(`
            ${Math.ceil(response.current.temp)}°F
          `);
@@ -156,7 +182,6 @@ $(document).ready(function () {
  
          // write 5 day forcast to page
          cardArray.forEach(function (card, i) {
-
            cardArray[i].innerHTML = `
            <div class="col-3">${weekdayStamp(response.daily[i].dt)}, ${timeStamp(response.daily[i].dt)}
           </div>
@@ -168,7 +193,6 @@ $(document).ready(function () {
 
          //write 7 day forecast to page
         cardArraySeven.forEach(function (card, i) {
-
           cardArraySeven[i].innerHTML = `
           <div class="col-3">${weekdayStamp(response.daily[i].dt)}, ${timeStamp(response.daily[i].dt)}
           </div>
@@ -179,7 +203,6 @@ $(document).ready(function () {
         });
 
         //write hourly forecast to page
-
         cardArrayHourly.forEach(function (card, i) {
           if (i <= 12) {
             cardArrayHourly[i].innerHTML = `
@@ -196,9 +219,19 @@ $(document).ready(function () {
        });
      });
    }
-   // initial weather call on page load
+
+   // initial weather call and history population on page load
    populateWeather();
- 
+   historyHandler();
+
+  //  event handler for history dropdown 
+   histList.addEventListener("click", (e) => {
+     e.preventDefault();
+     console.log(e.target.textContent.toLowerCase())
+     userSearch = e.target.textContent.toLowerCase();
+     populateWeather();
+   })
+
    // weather call on search button press
    $(".search-btn").on("click", function (event) {
      event.preventDefault();
@@ -206,9 +239,8 @@ $(document).ready(function () {
      $(".searchbox").val("");
      // push user search into an array for history
      historyButtons.push(userSearch);
-     console.log(last(historyButtons));
-     console.log(historyButtons);
      localStorage.setItem("json", JSON.stringify(historyButtons));
      populateWeather();
+     historyHandler();
    });
  });
