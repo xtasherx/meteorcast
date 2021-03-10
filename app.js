@@ -110,7 +110,7 @@ $(document).ready(function () {
 
    // function to get weather info and write it to page
    function populateWeather() {
-     let responseURL = `http://api.openweathermap.org/data/2.5/weather?q=${userSearch}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
+     let responseURL = `https://api.openweathermap.org/data/2.5/weather?q=${userSearch}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
      $.ajax({
        url: responseURL,
        method: "GET",
@@ -118,7 +118,7 @@ $(document).ready(function () {
        $(".city").text(response.name);
         latHolder = response.coord.lat;
         lonHolder = response.coord.lon;
-       responseURL = `http://api.openweathermap.org/data/2.5/onecall?lat=${latHolder}&lon=${lonHolder}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
+       responseURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latHolder}&lon=${lonHolder}&units=imperial&appid=d4f35f1397cda8a7222b2b4264b60559`;
  
 
        $.ajax({
@@ -175,7 +175,7 @@ $(document).ready(function () {
  
          $(".main-icon").attr(
            "src",
-           `http://openweathermap.org/img/wn/${response.current.weather[0].icon}@2x.png`
+           `https://openweathermap.org/img/wn/${response.current.weather[0].icon}@2x.png`
          );
  
          // write 5 day forcast to page
@@ -183,7 +183,7 @@ $(document).ready(function () {
            cardArray[i].innerHTML = `
            <div class="col-3">${weekdayStamp(response.daily[i].dt)}, ${timeStamp(response.daily[i].dt)}
           </div>
-          <div class="col-3"><img src="http://openweathermap.org/img/wn/${response.daily[i].weather[0].icon}@2x.png" style="max-height: 50px"alt=""></div>
+          <div class="col-3"><img src="https://openweathermap.org/img/wn/${response.daily[i].weather[0].icon}@2x.png" style="max-height: 50px"alt=""></div>
           <div class="col-3 text-orange-500 font-bold">High:${Math.ceil(response.daily[i].temp.max)}°F</div>
            <div class="col-3"> Low:${Math.ceil(response.daily[i].temp.min)}°F</div>
          `;
@@ -194,7 +194,7 @@ $(document).ready(function () {
           cardArraySeven[i].innerHTML = `
           <div class="col-3">${weekdayStamp(response.daily[i].dt)}, ${timeStamp(response.daily[i].dt)}
           </div>
-          <div class="col-3"><img src="http://openweathermap.org/img/wn/${response.daily[i].weather[0].icon}@2x.png" style="max-height: 50px"alt=""></div>
+          <div class="col-3"><img src="https://openweathermap.org/img/wn/${response.daily[i].weather[0].icon}@2x.png" style="max-height: 50px"alt=""></div>
           <div class="col-3 text-orange-500 font-bold">High:${Math.ceil(response.daily[i].temp.max)}°F</div>
           <div class="col-3"> Low:${Math.ceil(response.daily[i].temp.min)}°F</div>
         `;
@@ -206,7 +206,7 @@ $(document).ready(function () {
             cardArrayHourly[i].innerHTML = `
             <div class="col-3">${hourStamp(response.hourly[i].dt)}
             </div>
-            <div class="col-3"><img src="http://openweathermap.org/img/wn/${response.hourly[i].weather[0].icon}@2x.png" style="max-height: 50px"alt=""></div>
+            <div class="col-3"><img src="https://openweathermap.org/img/wn/${response.hourly[i].weather[0].icon}@2x.png" style="max-height: 50px"alt=""></div>
             <div class="col-3 text-orange-500 font-bold">${Math.ceil(response.hourly[i].temp)}°F</div>
             <div class="col-3"> ${response.hourly[i].weather[0].description}</div>
           `;
