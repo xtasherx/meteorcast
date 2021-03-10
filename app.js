@@ -219,7 +219,7 @@ $(document).ready(function () {
    }
 
    // initial weather call and history population on page load
-   historyHandler();
+  //  historyHandler();
    populateWeather();
 
 
