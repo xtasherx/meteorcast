@@ -1,0 +1,31 @@
+.parallax-img {
+  background-image: url("cloud.24c586a9.jpg");
+  background-size: cover;
+}
+
+#opaque-background {
+  background-color: #e3e3e366;
+}
+
+#dropdown, .five-day-div {
+  display: block;
+}
+
+.seven-day-div, .hourly-div {
+  display: none;
+}
+
+@media (width <= 768px) {
+  .current-div {
+    margin-top: 150px;
+  }
+
+  #current-1, #current-32, #current-3 {
+    margin: 0;
+  }
+
+  #dropdown {
+    display: none;
+  }
+}
+/*# sourceMappingURL=meteorcast.4ee4707b.css.map */
