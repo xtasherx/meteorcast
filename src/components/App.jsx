@@ -107,9 +107,9 @@ const App = () => {
 
   return (
     <div>
+      <Header onSearch={handleSearch} searchHistory={searchHistory} />
       <section className="section">
-        <div className="hero parallax-img fullscreen u-position-relative">
-          <Header onSearch={handleSearch} searchHistory={searchHistory} />
+        <div className="hero parallax-img fullscreen relative">
           <CurrentWeather weatherData={weatherData} city={city} />
         </div>
       </section>

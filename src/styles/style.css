@@ -7,6 +7,25 @@
   background-color: rgba(227, 227, 227, 0.4);
 }
 
+.form-group {
+  display: flex !important;
+}
+
+.header .nav-item .form-group {
+  width: auto;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.header .nav-item .form-group .form-group-input {
+  width: 200px;
+  flex-shrink: 1;
+}
+
+.header .nav-item .nav-dropdown-link{
+  height: 100%;
+}
+
 #dropdown {
   display: block;
 }
@@ -27,10 +46,6 @@
   .current-div {
     margin-top: 150px;
   }
-
-  /* #feelsLike {
-    margin-bottom: 0px;
-  } */
 
   #current-1,
   #current-32,

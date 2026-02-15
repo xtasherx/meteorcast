@@ -47,33 +47,33 @@ const ForecastSection = ({ weatherData }) => {
   })) || [];
 
   return (
-    <section className="section" id="forecast">
-      <div className="hero u-flex-column bg-white my-8">
+    <section className="" id="forecast">
+      <div className="">
         {/* Tabs */}
-        <div className="content tab-container tabs-large tabs-center my-5">
+        <div className="">
           <ul>
-            <li className={`tab ${activeTab === 'hourly' ? 'selected' : ''}`}>
+            <li className={`${activeTab === 'hourly' ? 'selected' : ''}`}>
               <div 
                 id="hourly-tab" 
-                className="tab-item-content"
+                className=""
                 onClick={() => setActiveTab('hourly')}
               >
                 Hourly
               </div>
             </li>
-            <li className={`tab ${activeTab === 'five-day' ? 'selected' : ''}`}>
+            <li className={`${activeTab === 'five-day' ? 'selected' : ''}`}>
               <div 
                 id="five-day-tab" 
-                className="tab-item-content"
+                className=""
                 onClick={() => setActiveTab('five-day')}
               >
                 5 Day
               </div>
             </li>
-            <li className={`tab ${activeTab === 'seven-day' ? 'selected' : ''}`}>
+            <li className={`${activeTab === 'seven-day' ? 'selected' : ''}`}>
               <div 
                 id="seven-day-tab" 
-                className="tab-item-content"
+                className=""
                 onClick={() => setActiveTab('seven-day')}
               >
                 7 Day
@@ -84,8 +84,8 @@ const ForecastSection = ({ weatherData }) => {
 
         {/* Five Day Forecast */}
         {activeTab === 'five-day' && (
-          <div className="content five-day-div">
-            <div className="content">
+          <div className="five-day-div">
+            <div className="">
               {fiveDayForecast.map((day, index) => (
                 <WeatherCard 
                   key={index}
@@ -101,8 +101,8 @@ const ForecastSection = ({ weatherData }) => {
 
         {/* Seven Day Forecast */}
         {activeTab === 'seven-day' && (
-          <div className="content seven-day-div">
-            <div className="content">
+          <div className="seven-day-div">
+            <div className="">
               {sevenDayForecast.map((day, index) => (
                 <WeatherCard 
                   key={index}
@@ -118,8 +118,8 @@ const ForecastSection = ({ weatherData }) => {
 
         {/* Hourly Forecast */}
         {activeTab === 'hourly' && (
-          <div className="content hourly-div">
-            <div className="content">
+          <div className="hourly-div">
+            <div className="">
               {hourlyForecast.map((hour, index) => (
                 <WeatherCard 
                   key={index}

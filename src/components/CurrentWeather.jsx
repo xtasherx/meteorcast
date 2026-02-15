@@ -3,9 +3,9 @@ import { formatDate, formatTime } from '../utils/dateHelpers';
 const CurrentWeather = ({ weatherData, city = 'London' }) => {
   if (!weatherData || !weatherData.current) {
     return (
-      <div className="hero-body">
-        <div className="content u-text-center current-div">
-          <h1 className="city text-light title">Loading...</h1>
+      <div className="">
+        <div className="current-div">
+          <h1 className="city">Loading...</h1>
         </div>
       </div>
     );
@@ -16,42 +16,42 @@ const CurrentWeather = ({ weatherData, city = 'London' }) => {
 
   return (
     <div className="hero-body">
-      <div className="content u-text-center current-div">
+      <div className="current-div content">
         <img src="#" alt="" className="main-icon" />
-        <h1 className="city text-light title">{city}</h1>
-        <h3 className="dateDisp font-light subtitle">
+        <h1 className="city">{city}</h1>
+        <h3 className="dateDisp">
           {formatDate(currentDate)}
         </h3>
         
-        <h3 className="temp headline-4 title">
+        <h3 className="temp">
           {Math.round(current.temperature_2m)}°F
         </h3>
-        <h4 className="feelsLike font-light text-light subtitle" id="feelsLike">
+        <h4 className="feelsLike" id="feelsLike">
           Feels like {Math.round(current.temperature_2m)}°F.
         </h4>
         
-        <div className="content">
-          <div className="row text-light">
-            <div className="current col-4 font-bold u-text-Center">
-              <ul className="no-bullets" id="current-1">
+        <div className="">
+          <div className="">
+            <div className="current">
+              <ul className="" id="current-1">
                 <li className="wind">Wind: --mph</li>
-                <li className="humidity font-alt">
+                <li className="humidity">
                   Humidity: {Math.round(current.relative_humidity_2m)}%
                 </li>
               </ul>
             </div>
             
-            <div className="current col-4 font-bold u-text-Center">
-              <ul className="no-bullets" id="current-2">
+            <div className="current">
+              <ul className="" id="current-2">
                 {daily && daily.temperature_2m_max && daily.temperature_2m_max[0] && (
                   <>
                     <li>
-                      <h4 className="high text-dark">
+                      <h4 className="high">
                         High: {Math.round(daily.temperature_2m_max[0])}°F
                       </h4>
                     </li>
                     <li>
-                      <h4 className="low text-dark">
+                      <h4 className="low">
                         Low: {Math.round(daily.temperature_2m_min[0])}°F
                       </h4>
                     </li>
@@ -60,8 +60,8 @@ const CurrentWeather = ({ weatherData, city = 'London' }) => {
               </ul>
             </div>
             
-            <div className="current col-4 font-bold u-text-center">
-              <ul className="no-bullets" id="current-3">
+            <div className="current">
+              <ul className="" id="current-3">
                 {daily && daily.sunrise && daily.sunrise[0] && (
                   <>
                     <li className="sunrise">
@@ -78,7 +78,7 @@ const CurrentWeather = ({ weatherData, city = 'London' }) => {
         </div>
         
         <a href="#forecast">
-          <button className="btn-small btn-dark">See Forecast</button>
+          <button className="">See Forecast</button>
         </a>
       </div>
     </div>
